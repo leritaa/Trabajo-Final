@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "4pm7/d+bAO4=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Lipar\\trabajos\\Final\\Final.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Lipar\\.nuget\\packages\\fsharp.core\\10.1.201\\fsharp.core.10.1.201.nupkg.sha512"
+  ],
+  "logs": []
+}

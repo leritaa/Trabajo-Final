@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Utilis.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="Guardar.fs" />
+    <Compile Include="Menu.fs" />
+    <Compile Include="Pause.fs" />
+    <Compile Include="Game.fs" />
+    <Compile Include="Router.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
