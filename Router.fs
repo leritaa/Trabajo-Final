@@ -31,40 +31,49 @@ let rec mainLoop state =
 
         match unbox (Menu.mostrar 10 7 opciones) with // aca utilizamos unbox para recuperar el comando original del tipo MenuCommands
         | NewGame -> 
-            Game.mainLoop App.Types.estadoInicial |> ignore
-            ShowingMenu
+            let estadoFinal = Game.mainLoop App.Types.estadoInicial
+            
+            //Evaluamos inmediatamente si el juego terminó por Game Over
+            match estadoFinal.ProgramState with
+            | Finished PerdióVidas -> 
+                dibujarPantallaGameOver()
+                ShowingMenu
+            | _ -> 
+                Console.Clear()
+                ShowingMenu
             
         | ContinueGame -> 
             // Intentamos buscar un archivo guardado
             match App.Guardar.cargarPartida() with
             | Some estadoCargado ->
-                // Si hay partida, corre el juego con esos datos guardados y luego vuelve al menú
-                Game.mainLoop estadoCargado |> ignore
-                ShowingMenu
-            | None ->
-                // Si no hay archivo guardado, arranca una limpia desde cero
-                Game.mainLoop App.Types.estadoInicial |> ignore
-                ShowingMenu
+                //  captura el estado final de la partida cargada
+                let estadoFinal = Game.mainLoop estadoCargado
                 
+                // Evaluamos si murió en la partida reanudada
+                match estadoFinal.ProgramState with
+                | Finished PerdióVidas -> 
+                    dibujarPantallaGameOver()
+                    ShowingMenu
+                | _ -> 
+                    Console.Clear()
+                    ShowingMenu
+            | None ->
+                let estadoFinal = Game.mainLoop App.Types.estadoInicial
+                match estadoFinal.ProgramState with
+                | Finished PerdióVidas -> 
+                    dibujarPantallaGameOver()
+                    ShowingMenu
+                | _ -> 
+                    ShowingMenu
         | Exit -> 
             Terminated
         
     | ShowingAlienGame ->  
-        let estadoFinal = Game.mainLoop App.Types.estadoInicial
-        
-        // 2. Revisamos con qué motivo terminó la partida
-        match estadoFinal.ProgramState with
-        | Finished PerdióVidas -> 
-            dibujarPantallaGameOver()
-            ShowingMenu
-
-        | Finished SalidaVoluntaria ->
-            Console.Clear()
-            ShowingMenu
-        |_ -> 
-            Console.Clear()
-            ShowingMenu
-        
+        Console.Clear()
+        ShowingMenu
+        // se deja apuntando al menú de forma segura para no romper la unión discriminada
+        //Revisamos con qué motivo terminó la partida
+    
     | Terminated ->
         Terminated
     |> fun s ->
