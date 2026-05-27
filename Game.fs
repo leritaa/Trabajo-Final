@@ -121,6 +121,8 @@ let actualizarEnemigo state =
 
 
 let detectarColisionConAlien state =
+    //Si el juego ya terminó o si el Alien está en modo 'Hit' (invulnerable),
+    // ignoramos por completo los misiles para que las vidas no sigan bajando.
     if state.AlienState = Hit || state.Vidas <= 0 then
         state
     else
