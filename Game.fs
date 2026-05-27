@@ -52,11 +52,7 @@ let dibujarVidas state =
     mostrarMensaje 2 2 ConsoleColor.Red textoVidas
 
 let dibujarReloj state =
-    // Tu texto rústico normal
     let textoReloj = ""+ string state.Clock + "s"
-    
-    // Usamos la función de tu profesor: ella sola calcula la columna,
-    // así que solo le pasamos la fila (1), el color y el texto.
     displayMessageRight 1 ConsoleColor.Green textoReloj
 let redibujarPantalla state =
     if state.RedibujarPantalla then 
