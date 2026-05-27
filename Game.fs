@@ -121,23 +121,26 @@ let actualizarEnemigo state =
 
 
 let detectarColisionConAlien state =
-    state.MisilesEnemigos
-    |> List.filter (fun misil -> not (misil.X = state.AlienX+1 && misil.Y = state.AlienY))
-    |> fun nuevosMisiles ->
-        if nuevosMisiles.Length <> state.MisilesEnemigos.Length then 
-            let nuevasVidas = state.Vidas - 1
-            // Si le quedan vidas, el juego sigue en 'Running', si no, 'GameOver'
-            let proximoEstado = if nuevasVidas <= 0 then Finished PerdióVidas else state.ProgramState
-            {state with 
-                AlienState=Hit
-                MisilesEnemigos=nuevosMisiles
-                RedibujarPantalla=true
-                ColisionAlien=state.Tick
-                Vidas = nuevasVidas
-                ProgramState = proximoEstado
-            }
-        else
-            state
+    if state.AlienState = Hit || state.Vidas <= 0 then
+        state
+    else
+        state.MisilesEnemigos
+        |> List.filter (fun misil -> not (misil.X = state.AlienX+1 && misil.Y = state.AlienY))
+        |> fun nuevosMisiles ->
+            if nuevosMisiles.Length <> state.MisilesEnemigos.Length then 
+                let nuevasVidas = state.Vidas - 1
+                // Si le quedan vidas, el juego sigue en 'Running', si no, 'GameOver'
+                let proximoEstado = if nuevasVidas <= 0 then Finished PerdióVidas else state.ProgramState
+                {state with 
+                    AlienState=Hit
+                    MisilesEnemigos=nuevosMisiles
+                    RedibujarPantalla=true
+                    ColisionAlien=state.Tick
+                    Vidas = nuevasVidas
+                    ProgramState = proximoEstado
+                }
+            else
+                state
 let detectarColisionConEnemigo state =
     if state.EnemigoEstado = Alive then
         state.Misiles

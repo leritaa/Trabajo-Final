@@ -27,3 +27,4 @@ C:\Users\Lipar\trabajos\Final\obj\Debug\net10.0\refint\Final.dll
 C:\Users\Lipar\trabajos\Final\obj\Debug\net10.0\Final.pdb
 C:\Users\Lipar\trabajos\Final\obj\Debug\net10.0\Final.genruntimeconfig.cache
 C:\Users\Lipar\trabajos\Final\obj\Debug\net10.0\ref\Final.dll
+C:\Users\Lipar\trabajos\Final\obj\Debug\net10.0\Final.sourcelink.json
